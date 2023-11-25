@@ -69,6 +69,18 @@ class View: UIView {
         return imageView
     }()
     
+    var firstText: String {
+        return firstTextField.text ?? ""
+    }
+    
+    var middleText: String {
+        return middleTextField.text ?? ""
+    }
+    
+    var lastText: String {
+        return lastTextField.text ?? ""
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -140,6 +152,13 @@ extension View: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         delegate?.displayTexts(firstText: firstTextField.text ?? "", secondText: middleTextField.text ?? "", thirdText: lastTextField.text ?? "")
+    }
+    
+    
+    func clearTextField() {
+        firstTextField.text = ""
+        middleTextField.text = ""
+        lastTextField.text = ""
     }
 }
 

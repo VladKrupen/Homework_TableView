@@ -11,7 +11,7 @@ protocol NotesViewDelegate: AnyObject {
     func displayTextView(text: String)
 }
 
-class NotesView: UIView {
+class NotesView: UIView, UITextViewDelegate {
     
     weak var delegate: NotesViewDelegate?
     
@@ -41,23 +41,27 @@ class NotesView: UIView {
         
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-extension NotesView: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        delegate?.displayTextView(text: notes.text)
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        delegate?.displayTextView(text: notes.text)
-//    }
-        
+    //    func textViewDidBeginEditing(_ textView: UITextView) {
+    //        delegate?.displayTextView(text: notes.text)
+    //    }
+    //
+    //    func textViewDidEndEditing(_ textView: UITextView) {
+    //        delegate?.displayTextView(text: notes.text)
+    //    }
+            
     func textViewDidChangeSelection(_ textView: UITextView) {
         delegate?.displayTextView(text: notes.text)
     }
+    
+    func clearTextNotes() {
+        notes.text = "Notes: "
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+ 
+    
 }
+
 
