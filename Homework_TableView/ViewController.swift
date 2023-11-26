@@ -48,7 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.separatorColor = .green
         tableView.tableHeaderView = header
         tableView.tableFooterView = buttonView
-        tableView.rowHeight = 100
+        
         
         
         
@@ -75,7 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,6 +92,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 520
     }
     
     //MARK: ViewDelegate
