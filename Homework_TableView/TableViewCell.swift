@@ -14,10 +14,10 @@ class TableViewCell: UITableViewCell {
     let notesView = {
         let notesView = NotesView()
         notesView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return notesView
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

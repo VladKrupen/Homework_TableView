@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ViewDelegate, NotesViewDelegate, ButtonViewDelegate {
     
     let tableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: UITableView.Style.grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.id)
         
@@ -23,17 +23,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return customView
     }()
-    
-    let notesView = {
-        let notesView = NotesView()
-        notesView.translatesAutoresizingMaskIntoConstraints = false
         
-        return notesView
-    }()
-    
     let buttonView = {
         let buttonView = ButtonView()
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
+//        buttonView.translatesAutoresizingMaskIntoConstraints = false
+        buttonView.frame = .init(x: 0, y: 0, width: 0, height: 70)
+        
         
         return buttonView
     }()
@@ -44,15 +39,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let header = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 130))
         
-        let footer = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
+//        let footer = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
         
         view.addSubview(tableView)
         header.addSubview(customView)
-        footer.addSubview(buttonView)
+//        footer.addSubview(buttonView)
         
         tableView.separatorColor = .green
         tableView.tableHeaderView = header
-        tableView.tableFooterView = footer
+        tableView.tableFooterView = buttonView
         tableView.rowHeight = 100
         
         
@@ -63,37 +58,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            
-            buttonView.topAnchor.constraint(equalTo: footer.topAnchor),
-            buttonView.bottomAnchor.constraint(equalTo: footer.bottomAnchor),
-            buttonView.leadingAnchor.constraint(equalTo: footer.leadingAnchor),
-            buttonView.trailingAnchor.constraint(equalTo: footer.trailingAnchor)
-            
+//            
+//            buttonView.topAnchor.constraint(equalTo: footer.topAnchor),
+//            buttonView.bottomAnchor.constraint(equalTo: footer.bottomAnchor),
+//            buttonView.leadingAnchor.constraint(equalTo: footer.leadingAnchor),
+//            buttonView.trailingAnchor.constraint(equalTo: footer.trailingAnchor),
+//            
         ])
         
         tableView.dataSource = self
         tableView.delegate = self
         customView.delegate = self
-        notesView.delegate = self
         buttonView.delegate = self
         
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.id, for: indexPath) as! TableViewCell
         
-        if flag == true {
-            cell.notesView.notes.text = "Notes: "
-        }
+        cell.notesView.delegate = self
         
-        if cell.notesView.notes.text == "Notes: " {
-            flag == false
-        }
+//        if flag == true {
+//            cell.notesView.notes.text = "Notes: "
+//        }
+//        
+//        if cell.notesView.notes.text == "Notes: " {
+//            flag == false
+//        }
         
         return cell
     }
@@ -130,7 +126,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func buttonCancelPressed(_ sender: ButtonView) {
         customView.clearTextField()
-        notesView.clearTextNotes()
         tableView.reloadData()
     }
     
